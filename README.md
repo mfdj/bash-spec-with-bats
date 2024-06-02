@@ -6,11 +6,11 @@ Future: make suite appropriately portable to multiple versions of BASH, common n
 
 **Usage**
 
-Install dependencies
+Install dependencies with [homebrew](https://brew.sh)
 
 ```sh
-$ brew tap kaos/shell
-$ brew install bash bats-core bats-assert bats-file bats-support
+$ brew tap bats-core/bats-core
+$ brew install bats-assert bats-file bats-support
 ```
 
 Run the sutie

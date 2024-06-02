@@ -1,11 +1,11 @@
 #!/usr/bin/env bash
 
-# brew tap kaos/shell
+# brew tap bats-core/bats-core
 # brew install bats-assert bats-file bats-support
-BREW_PREFIX="$(brew --prefix)"
-load "${BREW_PREFIX}/lib/bats-support/load.bash"
-load "${BREW_PREFIX}/lib/bats-assert/load.bash"
-load "${BREW_PREFIX}/lib/bats-file/load.bash"
+BATS_LIB_PATH="$BATS_LIB_PATH:$(brew --prefix)/lib"
+bats_load_library bats-assert
+bats_load_library bats-file
+bats_load_library bats-support
 
 #
 # Global setup/teardown to run before/after every test.
