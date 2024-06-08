@@ -7,25 +7,26 @@ bats_load_library bats-assert
 bats_load_library bats-file
 bats_load_library bats-support
 
-#
-# Global setup/teardown to run before/after every test.
-#
-# If cutomization is needed per test file prefix these functions and call them
-# individually from each file.
-#
+default_setup() {
+   set -o nounset # This ensures no unset variables are used in test block (BATS sets errexit)
 
-setup() {
-   set -o nounset # BATS sets errexit
+   # BATS generates several empty directories under BATS_RUN_TMPDIR:
+   #  • BATS_SUITE_TMPDIR for the whole test suite
+   #  • BATS_FILE_TMPDIR unique per test file
+   #  • BATS_TEST_TMPDIR unique per @test block
+   # Use `bats … --no-tempdir-cleanup` to retain BATS_RUN_TMPDIR and inspect the artifacts
 
-   export TEST_DIR
-   TEST_DIR=$(mktemp -d -t 'bash-spec-with-bats')
-   cd "$TEST_DIR" || {
-      echo 'Failed to generate TEST_DIR'
+   # Default to the directory generated per @test block; individual tests can override this behavior
+   pushd "$BATS_TEST_TMPDIR" || {
+      echo 'Failed to change to BATS_TEST_TMPDIR'
       exit 1
    }
 }
 
-teardown() {
-  # Clean up each run; uncomment this line to debug issues in tests
-  rm -rf "${TEST_DIR:?}"
+#
+# Setup is run before every test.
+# If customization is needed per file override this function.
+#
+setup() {
+   default_setup
 }
