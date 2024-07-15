@@ -1,5 +1,8 @@
 #!/usr/bin/env bash
 
+# Enable run-exit-status flags https://bats-core.readthedocs.io/en/stable/writing-tests.html#run-test-other-commands
+bats_require_minimum_version 1.5.0
+
 # brew tap bats-core/bats-core
 # brew install bats-assert bats-file bats-support
 BATS_LIB_PATH="$BATS_LIB_PATH:$(brew --prefix)/lib"

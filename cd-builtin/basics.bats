@@ -11,16 +11,14 @@ load ../test_helper
 @test 'directory created by the same user' {
    mkdir i-made-this
 
-   run cd i-made-this
-   assert_success
+   run -0 cd i-made-this
 }
 
 @test 'directory without read bit' {
    mkdir no-read-bit
    chmod -r no-read-bit
 
-   run cd no-read-bit
-   assert_success
+   run -0 cd no-read-bit
 
    # cleanup will fail otherwise
    chmod +r no-read-bit
@@ -30,8 +28,7 @@ load ../test_helper
    mkdir no-write-bit
    chmod -w no-write-bit
 
-   run cd no-write-bit
-   assert_success
+   run -0 cd no-write-bit
 }
 
 # Failure cases
@@ -40,8 +37,7 @@ load ../test_helper
    mkdir no-exec-bit
    chmod -x no-exec-bit
 
-   run cd no-exec-bit
-   assert_failure
+   run -1 cd no-exec-bit
 }
 
 # TODO: directories owned by other users/groups
